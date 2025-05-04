@@ -39,7 +39,9 @@ for line1 in dstfile:lines(format) do
     end
   end
   io.write(line1)
-  linenumber = linenumber + 1
+  if linenumber <= offset then
+    linenumber = linenumber + 1
+  end
 end
 
 dstfile:close()
