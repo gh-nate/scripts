@@ -42,4 +42,6 @@ for line1 in dstfile:lines(format) do
   linenumber = linenumber + 1
 end
 
+io.output():close()
+
 os.rename(tmpname, dstname)
