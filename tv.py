@@ -20,10 +20,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE."""
 
+# This script serves as a command that sets up a tmux session with vim at a
+# directory. It also switches between created tmux sessions when inside a tmux
+# session.
+
 from pathlib import Path
 
 import argparse
 import os
+import subprocess
 
 p = argparse.ArgumentParser()
 p.add_argument(
@@ -34,15 +39,10 @@ args = p.parse_args()
 args.start_directory = args.start_directory.absolute()
 session_name = args.start_directory.name
 
-os.execlp(
-    "tmux",
-    "tmux",
-    "new-session",
-    "-A",
-    "-c",
-    str(args.start_directory),
-    "-s",
-    session_name,
-    "vi",
-    "+se nu",
-)
+common = ["-c", str(args.start_directory), "-s", session_name, "vim", "+se nu"]
+f = "tmux"
+
+if os.getenv("TMUX"):
+    subprocess.run([f, "new-session", "-d", *common], capture_output=True)
+    os.execlp(f, f, "switch-client", "-t", session_name)
+os.execlp(f, f, "new-session", "-A", *common)
