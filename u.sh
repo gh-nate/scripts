@@ -24,6 +24,11 @@
 
 set -e
 
+if test "$1" = pip; then
+	python3 -m pip list --outdated
+	exit
+fi
+
 in_git_repo=
 if test -d .git; then
 	in_git_repo=1
