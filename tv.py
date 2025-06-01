@@ -21,8 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE."""
 
 # This script serves as a command that sets up a tmux session with vim at a
-# directory. It also switches between created tmux sessions when inside a tmux
-# session.
+# specified directory. It also switches between created tmux sessions when
+# inside a tmux session.
 
 from pathlib import Path
 
@@ -39,7 +39,14 @@ args = p.parse_args()
 args.start_directory = args.start_directory.absolute()
 session_name = args.start_directory.name
 
-common = ["-c", str(args.start_directory), "-s", session_name, "vim", "+se nu"]
+common = [
+    "-c",
+    str(args.start_directory),
+    "-s",
+    session_name,
+    os.getenv("EDITOR", "vim"),
+    "+se nu",
+]
 f = "tmux"
 
 if os.getenv("TMUX"):
