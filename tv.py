@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
 
 """Copyright (c) 2025 gh-nate
 
@@ -39,17 +39,17 @@ args = p.parse_args()
 args.start_directory = args.start_directory.absolute()
 session_name = args.start_directory.name
 
-common = [
+common = (
     "-c",
     str(args.start_directory),
     "-s",
     session_name,
     os.getenv("EDITOR", "vim"),
     "+se nu",
-]
+)
 f = "tmux"
 
 if os.getenv("TMUX"):
-    subprocess.run([f, "new-session", "-d", *common], capture_output=True)
+    subprocess.run((f, "new-session", "-d", *common), capture_output=True)
     os.execlp(f, f, "switch-client", "-t", session_name)
 os.execlp(f, f, "new-session", "-A", *common)
