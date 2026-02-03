@@ -36,8 +36,6 @@ if test "$in_git_repo"; then
 elif test -x /opt/homebrew/bin/brew; then
 	brew update
 	brew upgrade --ask
-elif test -f /etc/arch-release; then
-	sudo pacman -Syu
 elif test -f /etc/debian_version; then
 	sudo apt-get update
 	apt list --upgradable

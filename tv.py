@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run --script
+#!/usr/bin/python3
 
 """Copyright (c) 2025 gh-nate
 
