@@ -29,6 +29,7 @@ from pathlib import Path
 import argparse
 import os
 import subprocess
+import sys
 
 p = argparse.ArgumentParser()
 p.add_argument(
@@ -37,6 +38,8 @@ p.add_argument(
 args = p.parse_args()
 
 args.start_directory = args.start_directory.absolute()
+if not args.start_directory.is_dir():
+    sys.exit("No such directory")
 session_name = args.start_directory.name
 
 common = (
