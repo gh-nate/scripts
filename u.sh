@@ -40,4 +40,7 @@ elif test -f /etc/debian_version; then
 	sudo apt-get update
 	apt list --upgradable
 	sudo apt-get upgrade
+	if command -v flatpak > /dev/null; then
+		flatpak update
+	fi
 fi
