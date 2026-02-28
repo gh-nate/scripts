@@ -37,7 +37,7 @@ p.add_argument(
 )
 args = p.parse_args()
 
-args.start_directory = args.start_directory.absolute()
+args.start_directory = args.start_directory.resolve()
 if not args.start_directory.is_dir():
     sys.exit("No such directory")
 session_name = args.start_directory.name
